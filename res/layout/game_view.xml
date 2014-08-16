@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_frame"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <org.mrseige.view.GameView
+        android:id="@+id/game_view" android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+  
+    <RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="160dp"
+	    android:orientation="vertical" >
+	    <Button
+	        android:id="@+id/button_open"
+	        android:layout_width="100dp"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:text="@string/open"
+	        android:visibility="gone" />
+	
+	    <org.mrseige.slider.MultiDirectionSlidingDrawer
+	        xmlns:my="http://schemas.android.com/apk/res/org.mrseige.activity"
+	        android:id="@+id/drawer"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        my:content="@+id/content"
+	        my:direction="topToBottom"
+	        my:handle="@+id/handle" >
+	
+	        <include
+	            android:id="@id/content"
+	            layout="@layout/pen_content" />
+	
+	        <ImageView
+	            android:id="@id/handle"
+	            android:layout_width="wrap_content"
+	            android:layout_height="40px"
+	            android:src="@drawable/sliding_drawer_handle_bottom" />
+	    </org.mrseige.slider.MultiDirectionSlidingDrawer>
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent" 
+		android:layout_height="fill_parent">
+        
+	    <RelativeLayout android:id="@+id/game_menu"
+			android:layout_width="fill_parent" android:layout_height="50dp"
+			android:layout_alignParentTop="true">
+<!-- 			<FrameLayout android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"> 	
+		   		 <ImageView android:id="@+id/game_pause"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:src="@drawable/pause" 
+						android:layout_alignParentRight="true"/>
+			</FrameLayout> -->
+		</RelativeLayout>
+		
+		<RelativeLayout android:id="@+id/tool_kit"
+			android:layout_width="fill_parent" android:layout_height="65dp"
+			android:layout_alignParentBottom="true">
+		   		<!-- <ImageView android:id="@+id/frozenBtn"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:src="@drawable/frozen_btn" 
+						android:layout_alignParentRight="true"/>
+		    		 <ImageView android:id="@+id/fixBtn"
+						android:layout_width="wrap_content" android:layout_height="wrap_content"
+						android:src="@drawable/fix_btn" 
+						android:layout_alignParentLeft="true"/> -->
+		</RelativeLayout>
+		
+   </RelativeLayout>  
+    <LinearLayout android:id="@+id/game_view_info"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"
+        android:layout_height="230dp"
+        android:layout_width="fill_parent"
+		android:orientation="vertical" 
+		android:background="#55667788"
+		android:paddingTop="20dp">
+        <TextView android:id="@+id/game_view_info_text"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:gravity="center" 
+			android:textSize="30sp" 
+			android:textColor="#661111" />
+        <LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:gravity="center"
+		    >
+		    <Button
+		       android:id="@+id/game_view_play_btn"
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:background="@drawable/play"
+		       />
+		    <Button
+		       android:id="@+id/game_view_restart_btn"
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:text="@string/restart"
+		       android:background="@drawable/restart_btn"
+		       />
+		    <Button
+		       android:id="@+id/game_view_next_level"
+		       android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/next"
+		       android:background="@drawable/next_btn"
+             />		    
+    	</LinearLayout>
+    </LinearLayout>
+	
+</FrameLayout>
