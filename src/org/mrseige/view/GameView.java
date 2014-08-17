@@ -3,6 +3,7 @@ package org.mrseige.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mrseige.activity.GamePref;
 import org.mrseige.activity.MrSeigeActivity;
 import org.mrseige.base.AnimatedSprite;
 import org.mrseige.base.Layer;
@@ -15,6 +16,7 @@ import org.mrseige.game.GameStatus;
 import org.mrseige.game.LevelWizard;
 import org.mrseige.game.MonsterWizardRule;
 import org.mrseige.game.UpdateThread;
+import org.mrseige.game.LevelWizard.LevelConfig;
 import org.mrseige.sprite.Arrow;
 import org.mrseige.sprite.Crossbow;
 import org.mrseige.sprite.FixTool;
@@ -56,7 +58,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	private List<AnimatedSprite> explodeList = new ArrayList<AnimatedSprite>();
 	
 	private Monster monster;
-	
 	/**游戏等级**/
 	private int gameLevel;
 	
@@ -95,6 +96,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		
 	   	BitMapManager.getInstance().loadResource(context);
 	   	levelWizard = LevelWizard.getInstance();
+	   	
+	   	//levelWizard.reloadByLevel(gameLevel);
 
 	}
 
@@ -207,6 +210,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 			explodeList.get(i).draw(canvas);
 		}
 		
+		//check gamenext 动画结束后
+		if(monster.getNoneSeeZoombie()==0 && monsterList.size()==0) {
+			handler.sendMessage(handler.obtainMessage(SysConstant.GAME_PASS));
+		}
 	}
 	
 	public void explode() {
@@ -302,6 +309,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		GameManager.getInstance().setScreenWidth(screenWidth);
 		GameManager.getInstance().setScreenHeight(screenHeight);
 		
+		levelWizard = new LevelWizard();
 		monster = new Monster(context, levelWizard.getLevelConfig(gameLevel));
    }
 	   
@@ -319,7 +327,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	public void resetGame() {
 		monsterList.clear();
 		bow.getArrowList().clear();
+		
 		playGame();
+		
 		obsLifeCount = SysConstant.ObsLifeCount;
 		obstacle.setBitmap(BitMapManager.getInstance().obstacle[0]);
 		if(updateThread != null) {
@@ -339,6 +349,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
       updateThread.startUpdate();
    }
    
+   public void toNextLevel() {
+	   int passedLevel = GamePref.getInstance(context).getLevelPref();
+	   //开始新关卡
+	   if(gameLevel>passedLevel) {
+		   GamePref.getInstance(context).setLevelPref(gameLevel);
+	   }
+	   
+	   //关卡推进--关卡循环
+	   gameLevel = ++gameLevel % LevelWizard.getCurrentSize();
+   }
    PointF startPoint = new PointF(); 
    boolean touchOccupied = false;
 	@Override
@@ -349,6 +369,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 			startPoint.y = event.getY();
 			touchOccupied = false;
 		}
+		/*if(fw.touch(event) && fw.onTouch(event)) {
+			touchOccupied = true;
+			return true;
+		}*/
+		
 		if(bow.isContains(startPoint.x, startPoint.y) && !touchOccupied && bow.onTouch(event)) {	//弹起的时候手指不在bitmap上，所以出现了箭未射出的情况
 			return true;
 		}
@@ -359,10 +384,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 			return true;
 		}
 		
-		if(fw.touch(event) && fw.onTouch(event)) {
-			touchOccupied = true;
-			return true;
-		}
 		return false;
 	}
 	

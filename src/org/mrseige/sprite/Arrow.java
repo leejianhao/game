@@ -14,7 +14,7 @@ import android.util.Log;
 
 public class Arrow extends Layer {
 	
-	private static final String TAG = Arrow.class.getSimpleName();
+	private static final String TAG = "Arrow";
 	
 	private Bitmap rotatedBitmap;
 	private Rect rect;

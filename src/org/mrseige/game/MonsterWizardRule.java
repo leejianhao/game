@@ -29,13 +29,26 @@ public class MonsterWizardRule {
 		enumMap_attackBitmap.put(BitMapManager.getInstance().B, BitMapManager.getInstance().B_ATTACK);
 		enumMap_monsterproperty.put(MonsterWizard.B, copyToMonster(MonsterWizard.B));
 		
+		enumMap_bitmap.put(MonsterWizard.C, BitMapManager.getInstance().C);
+		enumMap_deadBitmap.put(BitMapManager.getInstance().C, BitMapManager.getInstance().C_DEAD);
+		enumMap_attackBitmap.put(BitMapManager.getInstance().C, BitMapManager.getInstance().C_ATTACK);
+		enumMap_monsterproperty.put(MonsterWizard.C, copyToMonster(MonsterWizard.C));
+		
 		enumMap_bitmap.put(MonsterWizard.D, BitMapManager.getInstance().D);
+		enumMap_deadBitmap.put(BitMapManager.getInstance().D, BitMapManager.getInstance().D_DEAD);
+		enumMap_attackBitmap.put(BitMapManager.getInstance().D, BitMapManager.getInstance().D_ATTACK);
 		enumMap_monsterproperty.put(MonsterWizard.D, copyToMonster(MonsterWizard.D));
+		
 		
 		enumMap_bitmap.put(MonsterWizard.E, BitMapManager.getInstance().E);
 		enumMap_deadBitmap.put(BitMapManager.getInstance().E, BitMapManager.getInstance().E_DEAD);
 		enumMap_attackBitmap.put(BitMapManager.getInstance().E, BitMapManager.getInstance().E_ATTACK);
 		enumMap_monsterproperty.put(MonsterWizard.E, copyToMonster(MonsterWizard.E));
+		
+		enumMap_bitmap.put(MonsterWizard.F, BitMapManager.getInstance().F);
+		enumMap_deadBitmap.put(BitMapManager.getInstance().F, BitMapManager.getInstance().F_DEAD);
+		enumMap_attackBitmap.put(BitMapManager.getInstance().F, BitMapManager.getInstance().F_ATTACK);
+		enumMap_monsterproperty.put(MonsterWizard.F, copyToMonster(MonsterWizard.F));
 		
 	}
 }

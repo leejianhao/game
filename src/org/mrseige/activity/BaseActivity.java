@@ -25,6 +25,7 @@ public class BaseActivity extends Activity {
         
         //关闭屏幕顶部的标题
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
 	}
 	
 	/**

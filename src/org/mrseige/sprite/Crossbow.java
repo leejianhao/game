@@ -27,7 +27,7 @@ import android.view.MotionEvent;
 
 public class Crossbow extends Layer implements TouchAble,Serializable{
 	
-	private static final String TAG = Crossbow.class.getSimpleName();
+	private static final String TAG = "Crossbow";
 	
 	private final static float MIN_DEGREE = -60f;  
     private final static float MAX_DEGREE = 60f;  

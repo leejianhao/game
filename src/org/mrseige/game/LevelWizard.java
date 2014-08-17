@@ -11,9 +11,10 @@ import java.util.Comparator;
  */
 public class LevelWizard {
 	private static ArrayList<LevelConfig> levelConfigList = new ArrayList<LevelConfig>();
+	private static ArrayList<LevelConfig> levelConfigList_backup = new ArrayList<LevelConfig>();
 	private static LevelWizard levelWizard = new LevelWizard();
 	
-	private LevelWizard() {
+	public LevelWizard() {
 		@SuppressWarnings("serial")
 		ArrayList<MonsterAllocate> monsterConfig_1 = new ArrayList<MonsterAllocate>() {
 			{
@@ -22,10 +23,50 @@ public class LevelWizard {
 				add(new MonsterAllocate(MonsterWizard.E, 1));
 			}
 		};
+		
+		@SuppressWarnings("serial")
+		ArrayList<MonsterAllocate> monsterConfig_2 = new ArrayList<MonsterAllocate>() {
+			{
+				add(new MonsterAllocate(MonsterWizard.A, 24));
+				add(new MonsterAllocate(MonsterWizard.B, 5));
+				add(new MonsterAllocate(MonsterWizard.D, 1));
+				add(new MonsterAllocate(MonsterWizard.E, 1));
+			}
+		};
+		
+		@SuppressWarnings("serial")
+		ArrayList<MonsterAllocate> monsterConfig_3 = new ArrayList<MonsterAllocate>() {
+			{
+				add(new MonsterAllocate(MonsterWizard.A, 10));
+				add(new MonsterAllocate(MonsterWizard.B, 15));
+				add(new MonsterAllocate(MonsterWizard.C, 2));
+				add(new MonsterAllocate(MonsterWizard.E, 2));
+				add(new MonsterAllocate(MonsterWizard.F, 1));
+			}
+		};
+		
+		/*@SuppressWarnings("serial")
+		ArrayList<MonsterAllocate> monsterConfig_4 = new ArrayList<MonsterAllocate>() {
+			{
+				add(new MonsterAllocate(MonsterWizard.A, 10));
+				add(new MonsterAllocate(MonsterWizard.B, 15));
+				add(new MonsterAllocate(MonsterWizard.C, 2));
+				add(new MonsterAllocate(MonsterWizard.E, 2));
+				add(new MonsterAllocate(MonsterWizard.F, 1));
+			}
+		};*/
+		
 		levelConfigList.clear();
 		levelConfigList.add(new LevelConfig(monsterConfig_1, 21, 10, 0.25, 50));
+		levelConfigList.add(new LevelConfig(monsterConfig_2, 31, 5, 0.25, 50));
+		levelConfigList.add(new LevelConfig(monsterConfig_3, 30, 5, 0.25, 75));
+		
+		//backup
+		levelConfigList_backup.addAll(levelConfigList);
 	}
-	public class LevelConfig {
+	
+	
+	public class LevelConfig implements Cloneable {
 		
 		private ArrayList<MonsterAllocate> monsterAllocate;
 		private int totalMonsterNumber;
@@ -101,5 +142,10 @@ public class LevelWizard {
 	
 	public static LevelWizard getInstance() {
 		return levelWizard;
+	}
+	
+	//测试
+	public static int getCurrentSize() {
+		return levelConfigList.size();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 import org.mrseige.base.AnimatedSprite;
 import org.mrseige.common.DensityUtil;
 import org.mrseige.common.GameManager;
+import org.mrseige.common.SysConstant;
 import org.mrseige.game.LevelWizard;
 import org.mrseige.game.MonsterAllocate;
 import org.mrseige.game.MonsterProperty;
@@ -61,7 +62,11 @@ public class Monster extends AnimatedSprite implements Serializable{
 
 	private int totalMonsterNumber ;
 	private int existMonsterNumber;
+	private int noneSeeZoombie = -1;
 	
+	public int getNoneSeeZoombie() {
+		return noneSeeZoombie;
+	}
 	
 	public boolean isCollisionWithObstacle() {
 		return collisionWithObstacle;
@@ -113,7 +118,7 @@ public class Monster extends AnimatedSprite implements Serializable{
 				monster.setHeight(y+DensityUtil.dip2px(context, monster.getMonsterProperty().getHeight()));
 			}
 		}
-		int noneSeeZoombie = totalMonsterNumber - existMonsterNumber;
+		noneSeeZoombie = totalMonsterNumber - existMonsterNumber;
 		
 		long endTime = System.currentTimeMillis();
 		if((noneSeeZoombie>0) && ((endTime-startTime) >= (noneSeeZoombie*200*3+300))) {
@@ -130,7 +135,7 @@ public class Monster extends AnimatedSprite implements Serializable{
 				} catch (CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
-				firstMonster.setCount(firstMonster.getCount() - 1);
+				firstMonster.setCount(firstMonster.getCount()-1);
 			}else {
 				int index = rm.nextInt(noneSeeZoombie);	
 				Log.v(TAG, "index="+index);
@@ -168,8 +173,8 @@ public class Monster extends AnimatedSprite implements Serializable{
 	 */
 	private void addMonster(List<Monster> monsterList, int screenWidth,
 			Bitmap[] bitmaps, MonsterProperty monsterProperty) {
-		int monsterWidth = bitmaps[0].getWidth()*monsterProperty.getBulk();
-		int monsterHeight = bitmaps[0].getHeight()*monsterProperty.getBulk();
+		int monsterWidth = (int) (bitmaps[0].getWidth()*(1+monsterProperty.getBulk()*SysConstant.ZOOM_PERCENT));
+		int monsterHeight = (int) (bitmaps[0].getHeight()*(1+monsterProperty.getBulk()*SysConstant.ZOOM_PERCENT));
 		int x =(int) (Math.random()*screenWidth);
 		int size = monsterList.size();
 		Random random = new Random();

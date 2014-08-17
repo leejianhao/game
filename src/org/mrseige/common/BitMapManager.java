@@ -33,11 +33,21 @@ public class BitMapManager{
 	public Bitmap[] B_DEAD = new Bitmap[4];
 	public Bitmap[] B_ATTACK = new Bitmap[3];
 	
-	public Bitmap[] D = new Bitmap[1];
+	public Bitmap[] C = new Bitmap[5];
+	public Bitmap[] C_DEAD = new Bitmap[4];
+	public Bitmap[] C_ATTACK = new Bitmap[3];
+	
+	public Bitmap[] D = new Bitmap[5];
+	public Bitmap[] D_DEAD = new Bitmap[4];
+	public Bitmap[] D_ATTACK = new Bitmap[4];
 	
 	public Bitmap[] E = new Bitmap[5];
 	public Bitmap[] E_DEAD = new Bitmap[4];
 	public Bitmap[] E_ATTACK = new Bitmap[3];
+	
+	public Bitmap[] F = new Bitmap[10];
+	public Bitmap[] F_DEAD = new Bitmap[3];
+	public Bitmap[] F_ATTACK = new Bitmap[4];
 	
 	private static final BitMapManager bmm = new BitMapManager();
 	private BitMapManager(){}
@@ -102,6 +112,37 @@ public class BitMapManager{
 			B_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
 		}
 		
+		for(int i=0,size=C.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.c1+i);
+			C[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=C_DEAD.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.c_dead_1+i);
+			C_DEAD[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=C_ATTACK.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.c_attack_1+i);
+			C_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=D.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.d1+i);
+			D[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=D_DEAD.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.d_dead_1+i);
+			D_DEAD[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=D_ATTACK.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.d_attack_1+i);
+			D_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		
 		for(int i=0,size=E.length;i<size;i++) {
 			Bitmap b = readBitMap(context, R.drawable.e1+i);
 			E[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
@@ -116,6 +157,22 @@ public class BitMapManager{
 			Bitmap b = readBitMap(context, R.drawable.e_attack_1+i);
 			E_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
 		}
+		
+		for(int i=0,size=F.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.f1+i);
+			F[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=F_DEAD.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.f_dead_1+i);
+			F_DEAD[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=F_ATTACK.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.f_attack_1+i);
+			F_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
 		
 	}
 	

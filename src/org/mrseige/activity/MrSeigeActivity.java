@@ -62,7 +62,14 @@ public class MrSeigeActivity extends BaseActivity{
 			case SysConstant.GAME_OVER:
 				stopGame(SysConstant.GAME_OVER);
 				break;
+			case SysConstant.GAME_PASS:
+				stopGame(SysConstant.GAME_PASS);
+				break;
+			default:
+				break;
 			}
+				
+				
 		};
 	};
 	
@@ -182,12 +189,22 @@ public class MrSeigeActivity extends BaseActivity{
 	}
 	
 	private void setupListeners() {
+		if(gameInfoNextLvBtn !=null) {
+			gameInfoNextLvBtn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					goNextLevel();
+					resetGame();
+				}
+			});
+		}
+		
 		if (gamePause != null) {
 	         gamePause.setOnClickListener(new OnClickListener() {
 	            @Override
 	            public void onClick(View v) {
 	               pauseGame();
-	               //游戏暂停时，手气drawer
+	               //游戏暂停时，收起drawer
 	               mDrawer.animateClose();
 	            }
 	         });
@@ -236,6 +253,11 @@ public class MrSeigeActivity extends BaseActivity{
 		}
 	}
 	
+	private void  goNextLevel() {
+		if(gameView != null) {
+			gameView.toNextLevel();
+		}
+	}
 	private void resumeGame() {
       gameStatus.setStatus(GameStatus.GAME_RUNNING);
       gameView.resumeGame();
@@ -258,7 +280,13 @@ public class MrSeigeActivity extends BaseActivity{
 	   gameView.stopGame();
 	   gameStatus.setStatus(GameStatus.GAME_STOPPED);
 	   hideGamePause();
-	   int info = R.string.over;
+	   int info = R.string.app_name;
+	   if(why==SysConstant.GAME_OVER) {
+		   info = R.string.over;
+	   } else if (why == SysConstant.GAME_PASS) {
+		   info = R.string.next;
+	   }
+	   
 	   showGameInfo(why, info);
    }
    
@@ -288,6 +316,12 @@ public class MrSeigeActivity extends BaseActivity{
 		   gameInfoPlayBtn.setVisibility(View.GONE);
 	       gameInfoRestartBtn.setVisibility(View.VISIBLE);
 	       gameInfoNextLvBtn.setVisibility(View.GONE);
+	       break;
+	   case SysConstant.GAME_PASS:
+		   gameInfoPlayBtn.setVisibility(View.GONE);
+	       gameInfoRestartBtn.setVisibility(View.GONE);
+	       gameInfoNextLvBtn.setVisibility(View.VISIBLE);
+	       break;
 	   }
    }
    /*@Override
