@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import org.mrseige.base.AnimatedSprite;
+import org.mrseige.base.entity.LevelData;
+import org.mrseige.base.entity.MonsterAlloc;
+import org.mrseige.base.entity.MonsterProperty;
 import org.mrseige.common.DensityUtil;
 import org.mrseige.common.GameManager;
 import org.mrseige.common.SysConstant;
-import org.mrseige.game.LevelWizard;
-import org.mrseige.game.MonsterAllocate;
-import org.mrseige.game.MonsterProperty;
 import org.mrseige.game.MonsterWizardRule;
 
 import android.content.Context;
@@ -31,7 +31,7 @@ public class Monster extends AnimatedSprite implements Serializable{
 	
 	private long startTime = 0;
 	
-	LevelWizard.LevelConfig levelConfig;
+	LevelData levelData;
 	
 	private static final int STEP_Y = 1;
 	
@@ -90,10 +90,10 @@ public class Monster extends AnimatedSprite implements Serializable{
 	public Monster() {
 		
 	}
-	public Monster(Context context, LevelWizard.LevelConfig levelConfig) {
+	public Monster(Context context, LevelData levelData) {
 		this.context = context;
-		this.levelConfig = levelConfig;
-		totalMonsterNumber = levelConfig.getTotalMonsterNumber();
+		this.levelData = levelData;
+		totalMonsterNumber = levelData.getTotalMonsterNumber();
 	}
 	
 	public Monster(int x, int y, int width, int height) {
@@ -122,16 +122,16 @@ public class Monster extends AnimatedSprite implements Serializable{
 		
 		long endTime = System.currentTimeMillis();
 		if((noneSeeZoombie>0) && ((endTime-startTime) >= (noneSeeZoombie*200*3+300))) {
-			List<MonsterAllocate> ma = levelConfig.getMonsterAllocate();
+			List<MonsterAlloc> ma = levelData.getMonsterAllocs();
 			Bitmap[] bitmaps = null;
 			MonsterProperty monsterProperty = null;
-			MonsterAllocate firstMonster = ma.get(0);
+			MonsterAlloc firstMonster = ma.get(0);
 			//优先级低的先出现，如果该关卡中优先级最低的对象数量多于5，则依次出现
 			//随后则随机出现
 			if(ma.size()> 0 && monsterList.size() < 5 && firstMonster.getCount() > 0) {
-				bitmaps = MonsterWizardRule.enumMap_bitmap.get(firstMonster.getMonsterWizard());
+				bitmaps = MonsterWizardRule.enumMap_bitmap.get(firstMonster.getMonster().getMonsterType());
 				try {
-					monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(firstMonster.getMonsterWizard()).clone();
+					monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(firstMonster.getMonster().getMonsterType()).clone();
 				} catch (CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
@@ -141,9 +141,9 @@ public class Monster extends AnimatedSprite implements Serializable{
 				Log.v(TAG, "index="+index);
 				for(int i=0;i<ma.size();i++) {
 					if(ma.get(i).getCount() > index) {
-						bitmaps = MonsterWizardRule.enumMap_bitmap.get(ma.get(i).getMonsterWizard());
+						bitmaps = MonsterWizardRule.enumMap_bitmap.get(ma.get(i).getMonster().getMonsterType());
 						try {
-							monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(ma.get(i).getMonsterWizard()).clone();
+							monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(ma.get(i).getMonster().getMonsterType()).clone();
 						} catch (CloneNotSupportedException e) {
 							e.printStackTrace();
 						}

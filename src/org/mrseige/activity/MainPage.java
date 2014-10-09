@@ -1,10 +1,13 @@
 package org.mrseige.activity;
 
+import org.mrseige.common.BitMapManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -15,9 +18,18 @@ import android.widget.Toast;
  */
 public class MainPage extends BaseActivity implements OnClickListener{
 	
-	private Button start;
-	private Button ranking_board;
-	private Button exit;
+	/**
+	 * 开始
+	 */
+	private ImageView play;
+	/**
+	 * 排行榜
+	 */
+	private ImageView rank;
+	/**
+	 * 升级
+	 */
+	private ImageView upgrade;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,33 +39,34 @@ public class MainPage extends BaseActivity implements OnClickListener{
         this.setFullScreen();
         //设置屏幕常亮
         this.setScreenLit();
-        setContentView(R.layout.main_page);
+        setContentView(R.layout.mainpage);
         
         findViews();
+        
 	}
 	
 	
 	private void findViews() {
-		start = (Button) findViewById(R.id.mainpage_start);
-		start.setOnClickListener(this);
-		ranking_board = (Button) findViewById(R.id.mainpage_ranking_board);
-		ranking_board.setOnClickListener(this);
-		exit = (Button)findViewById(R.id.mainpage_exit);
-		exit.setOnClickListener(this);
+		play = (ImageView) findViewById(R.id.playIcon);
+		play.setOnClickListener(this);
+		rank = (ImageView) findViewById(R.id.rankIcon);
+		rank.setOnClickListener(this);
+		upgrade = (ImageView) findViewById(R.id.upgradeIcon);
+		upgrade.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();
 		switch (v.getId()) {
-			case R.id.mainpage_start:
+			case R.id.playIcon:
 				intent.setClass(MainPage.this, LevelActivity.class);
 				startActivity(intent);
 				break;
-			case R.id.mainpage_ranking_board:
+			case R.id.rankIcon:
 				Toast.makeText(getApplicationContext(), "该功能暂未开放！", Toast.LENGTH_LONG).show();;
 				break;
-			case R.id.mainpage_exit:
+			case R.id.upgradeIcon:
 		         finish();
 		         break;
 		}

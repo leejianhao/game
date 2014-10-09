@@ -6,11 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class LevelActivity extends BaseActivity {
 	
-	Button button1,button2,button3;
+	private ImageView gotomainpage;
 	private int passedLevel;
 	private Context context;
 	@Override
@@ -23,17 +24,42 @@ public class LevelActivity extends BaseActivity {
         //设置屏幕常亮
         this.setScreenLit();
         
-		setContentView(R.layout.level_page);
-		
-		findViews();
-		
-		context = this;
+		setContentView(R.layout.levelpage);
 		passedLevel = GamePref.getInstance(this).getLevelPref();
+		findViews();
+		context = this;
 		
 	}
+	
 	private void findViews() {
-		button1 = (Button) findViewById(R.id._1);
-		button1.setOnClickListener(new View.OnClickListener() {
+		ImageView imageView;
+		for(int i=0;i<5;i++) {
+			imageView = ((ImageView) findViewById(R.id.imageView1+i));
+			if(i<=passedLevel%5+1) {
+				imageView.setImageResource(R.drawable.level_1_1+i);
+				imageView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(LevelActivity.this,
+								MrSeigeActivity.class);
+						intent.putExtra(SysConstant.LEVEL_REF, passedLevel+1);
+						startActivity(intent);
+					}
+				});
+			}else {
+				imageView.setImageResource(R.drawable.level_1_1+5);
+				imageView.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(context, R.string.new_round, Toast.LENGTH_LONG).show();
+					}
+					
+				});
+			}
+		}
+		/*imageView1 = (ImageView) findViewById(R.id.imageView1);
+		imageView1.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -43,8 +69,8 @@ public class LevelActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		button2 = (Button) findViewById(R.id._2);
-		button2.setOnClickListener(new View.OnClickListener() {
+		imageView2 = (ImageView) findViewById(R.id.imageView2);
+		imageView2.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -54,8 +80,8 @@ public class LevelActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		button3 = (Button) findViewById(R.id._3);
-		button3.setOnClickListener(new View.OnClickListener() {
+		imageView3 = (ImageView) findViewById(R.id.imageView3);
+		imageView3.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -64,6 +90,15 @@ public class LevelActivity extends BaseActivity {
 				intent.putExtra(SysConstant.LEVEL_REF, 2);
 				startActivity(intent);
 			}
-		});
+		});*/
+		
+		gotomainpage = (ImageView) findViewById(R.id.gotomainpage);
+		gotomainpage.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		} );
 	}
 }

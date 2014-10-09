@@ -3,7 +3,6 @@ package org.mrseige.common;
 import java.io.InputStream;
 
 import org.mrseige.activity.R;
-import org.mrseige.game.MonsterWizard;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -33,6 +32,13 @@ public class BitMapManager{
 	public Bitmap[] B_DEAD = new Bitmap[4];
 	public Bitmap[] B_ATTACK = new Bitmap[3];
 	
+	public Bitmap[] BB = new Bitmap[3];
+	public Bitmap[] BB_DEAD = new Bitmap[4];
+	public Bitmap[] BB_ATTACK = new Bitmap[3];
+	
+	public Bitmap[] BB_ = new Bitmap[3];
+	public Bitmap[] BB__ATTACK = new Bitmap[3];
+	
 	public Bitmap[] C = new Bitmap[5];
 	public Bitmap[] C_DEAD = new Bitmap[4];
 	public Bitmap[] C_ATTACK = new Bitmap[3];
@@ -49,14 +55,25 @@ public class BitMapManager{
 	public Bitmap[] F_DEAD = new Bitmap[3];
 	public Bitmap[] F_ATTACK = new Bitmap[4];
 	
+	
+	
+	public Bitmap[] level = new Bitmap[6];
+	
 	private static final BitMapManager bmm = new BitMapManager();
 	private BitMapManager(){}
 	
 	public static BitMapManager getInstance() {
 		return bmm;
 	}
+	public void loadResource2(Context context) {
+		for(int i=0,size=level.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.level_1_1+i);
+			level[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+	}
 	
 	public void loadResource(Context context) {
+		
 		for(int i=0,size=background.length;i<size;i++) {
 			background[i] = readBitMap(context, R.drawable.bg+i);
 		}
@@ -110,6 +127,31 @@ public class BitMapManager{
 		for(int i=0,size=B_ATTACK.length;i<size;i++) {
 			Bitmap b = readBitMap(context, R.drawable.crawl_attack_1+i);
 			B_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=BB.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.bb1+i);
+			BB[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=BB_DEAD.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.bb_dead_1+i);
+			BB_DEAD[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=BB_ATTACK.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.bb_attack_1+i);
+			BB_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=BB_.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.bb1_1+i);
+			BB_[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		
+		for(int i=0,size=BB__ATTACK.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.bb_attack_1+i);
+			BB__ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
 		}
 		
 		for(int i=0,size=C.length;i<size;i++) {

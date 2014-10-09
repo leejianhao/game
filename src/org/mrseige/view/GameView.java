@@ -7,16 +7,15 @@ import org.mrseige.activity.GamePref;
 import org.mrseige.activity.MrSeigeActivity;
 import org.mrseige.base.AnimatedSprite;
 import org.mrseige.base.Layer;
+import org.mrseige.base.entity.MonsterList;
 import org.mrseige.common.BitMapManager;
 import org.mrseige.common.DensityUtil;
 import org.mrseige.common.GameManager;
 import org.mrseige.common.Pos;
 import org.mrseige.common.SysConstant;
 import org.mrseige.game.GameStatus;
-import org.mrseige.game.LevelWizard;
 import org.mrseige.game.MonsterWizardRule;
 import org.mrseige.game.UpdateThread;
-import org.mrseige.game.LevelWizard.LevelConfig;
 import org.mrseige.sprite.Arrow;
 import org.mrseige.sprite.Crossbow;
 import org.mrseige.sprite.FixTool;
@@ -61,14 +60,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	/**游戏等级**/
 	private int gameLevel;
 	
-	/**游戏关卡向导**/
-	private LevelWizard levelWizard;
-	
 	/**墙体生命值**/
 	public int obsLifeCount = SysConstant.ObsLifeCount;
 	
 	private Handler handler;
 	private GameStatus gameStatus;
+	
 	
 	public GameView(Context context) {
 		super(context);
@@ -95,11 +92,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		distanceToScreenBottom = (int) (screenHeight*0.3);
 		
 	   	BitMapManager.getInstance().loadResource(context);
-	   	levelWizard = LevelWizard.getInstance();
 	   	
-	   	//levelWizard.reloadByLevel(gameLevel);
-
+	   //	loadByLevel();
 	}
+	
+	private org.mrseige.base.entity.LevelData loadByLevel() {
+		int rows = gameLevel/3;
+		int cols = gameLevel%5;
+		Log.d(TAG, "rows: "+rows+" cols: "+cols);
+		return org.mrseige.base.entity.LevelConfig.getInstance().getLevel()[rows][cols];
+	}
+	
 
 	public void init(Handler handler, int gameLevel) {
 		this.gameLevel = gameLevel;
@@ -309,8 +312,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		GameManager.getInstance().setScreenWidth(screenWidth);
 		GameManager.getInstance().setScreenHeight(screenHeight);
 		
-		levelWizard = new LevelWizard();
-		monster = new Monster(context, levelWizard.getLevelConfig(gameLevel));
+		monster = new Monster(context, loadByLevel());
    }
 	   
 	/**暂停游戏**/
@@ -357,7 +359,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	   }
 	   
 	   //关卡推进--关卡循环
-	   gameLevel = ++gameLevel % LevelWizard.getCurrentSize();
+	   gameLevel = ++gameLevel % MonsterList.monsterList.size();
    }
    PointF startPoint = new PointF(); 
    boolean touchOccupied = false;
