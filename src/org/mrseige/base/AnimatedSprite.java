@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,9 +18,10 @@ public class AnimatedSprite extends Tiled implements Serializable{
 	private int position=0;
 	private long start_timer;
 	private static final int ANIMA_TIMER=100;//每帧动画绘制所需要的时间
-	
+	private Paint paint;
 	public AnimatedSprite() {
-		
+		paint = new Paint();
+		paint.setColor(Color.RED);
 	}
 	
 	public AnimatedSprite(int x, int y, int width, int height) {
@@ -34,6 +37,7 @@ public class AnimatedSprite extends Tiled implements Serializable{
 		Log.i("value", " "+this.getPosition());
 		//Bug:避免怪物Bitmap变化时，引发的IndexOutOfBoundException
 		if(position>=bitmap.length)position=bitmap.length-1; 
+	//	canvas.drawRect(x, y, width, height, paint);
 		canvas.drawBitmap(bitmap[position], null,rect, null);
 		canvas.restore();
 		if(!isEnd){

@@ -253,9 +253,9 @@ containing a value of this type.
         public static final int handle=0x7f040009;
         public static final int imageView1=0x7f040011;
         public static final int imageView2=0x7f040013;
-        public static final int imageView3=0x7f040012;
-        public static final int imageView4=0x7f040015;
-        public static final int imageView5=0x7f040014;
+        public static final int imageView3=0x7f040015;
+        public static final int imageView4=0x7f040014;
+        public static final int imageView5=0x7f040012;
         public static final int layout01=0x7f04001b;
         public static final int leftToRight=0x7f040002;
         public static final int name_view=0x7f04001d;

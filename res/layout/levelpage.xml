@@ -26,10 +26,10 @@
         android:layout_marginTop="15dp">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/level_1_6"
+            android:src="@drawable/level_1_5"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"
              />
@@ -51,18 +51,18 @@
         android:layout_marginTop="15dp">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/level_1_6"
+            android:src="@drawable/level_1_4"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="70dp"/>
 
 	    <ImageView
-	        android:id="@+id/imageView4"
+	        android:id="@+id/imageView3"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/level_1_6"
+	        android:src="@drawable/level_1_3"
 	        android:layout_alignParentRight="true"
 	        android:layout_marginRight="70dp"
 	         />
