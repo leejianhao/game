@@ -185,6 +185,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 						explodeList.add(explode);
 						
 						monsterList.remove(monster);
+					}else {
+						//标记怪物被射中
+						monster.setAttacked(true);
 					}
 				}
 			}
@@ -206,13 +209,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		ft.draw(canvas);
 		
 		for(int i=0;i<monsterList.size();i++) {
-			if(monsterList.get(i).isAlive())
+			if(monsterList.get(i).isAlive()) {
+				if(monsterList.get(i).isAttacked()) {
+					monsterList.get(i).draw2(canvas);
+				}
 				monsterList.get(i).draw(canvas);
+			}
+			
 		}
 		for(int i=0;i<explodeList.size();i++) {
 			explodeList.get(i).draw(canvas);
 		}
-		
 		//check gamenext 动画结束后
 		if(monster.getNoneSeeZoombie()==0 && monsterList.size()==0) {
 			handler.sendMessage(handler.obtainMessage(SysConstant.GAME_PASS));
@@ -354,8 +361,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
    public void toNextLevel() {
 	   int passedLevel = GamePref.getInstance(context).getLevelPref();
 	   //开始新关卡
-	   if(gameLevel>passedLevel) {
-		   GamePref.getInstance(context).setLevelPref(gameLevel);
+	   if(gameLevel+1>passedLevel) {
+		   GamePref.getInstance(context).setLevelPref(gameLevel+1);
 	   }
 	   
 	   //关卡推进--关卡循环

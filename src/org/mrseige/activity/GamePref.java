@@ -46,7 +46,7 @@ public class GamePref {
       if (context != null) {
          SharedPreferences sp = context.getSharedPreferences(PREF,
                Context.MODE_PRIVATE);
-         level = sp.getInt(GAME_LEVEL_PREF, -1);
+         level = sp.getInt(GAME_LEVEL_PREF, 0);
       }
       return level;
    }

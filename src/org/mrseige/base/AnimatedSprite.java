@@ -18,14 +18,16 @@ public class AnimatedSprite extends Tiled implements Serializable{
 	private int position=0;
 	private long start_timer;
 	private static final int ANIMA_TIMER=100;//每帧动画绘制所需要的时间
+	
 	private Paint paint;
 	public AnimatedSprite() {
-		paint = new Paint();
-		paint.setColor(Color.RED);
+		
 	}
 	
 	public AnimatedSprite(int x, int y, int width, int height) {
 			super(x, y, width, height);
+			paint = new Paint();
+			paint.setColor(Color.RED);
 			// TODO Auto-generated constructor stub
 	}
 	
@@ -54,6 +56,34 @@ public class AnimatedSprite extends Tiled implements Serializable{
 					}
 				}
 			}
+		}
+	}
+	
+	/**
+	 * 计数器
+	 */
+	private int count =0;
+	/**
+	 * 标记怪物被射中
+	 */
+	private boolean attacked = false;
+	
+	public boolean isAttacked() {
+		return attacked;
+	}
+
+	public void setAttacked(boolean attacked) {
+		this.attacked = attacked;
+	}
+
+	public void draw2(Canvas canvas) {
+		if(count++<=3) {
+			canvas.save();
+			canvas.drawRect(x, y, width, height, paint);
+			canvas.restore();
+		}else {
+			attacked = false;
+			count = 0;
 		}
 	}
 	

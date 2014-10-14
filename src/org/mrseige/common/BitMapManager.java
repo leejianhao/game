@@ -59,6 +59,8 @@ public class BitMapManager{
 	
 	public Bitmap[] level = new Bitmap[6];
 	
+	
+	public Bitmap[] attackedHint = new Bitmap[3];
 	private static final BitMapManager bmm = new BitMapManager();
 	private BitMapManager(){}
 	
@@ -73,6 +75,9 @@ public class BitMapManager{
 	}
 	
 	public void loadResource(Context context) {
+		for(int i=0,size=attackedHint.length;i<size;i++) {
+			attackedHint[0] = readBitMap(context, R.drawable.attacked);
+		}
 		
 		for(int i=0,size=background.length;i<size;i++) {
 			background[i] = readBitMap(context, R.drawable.bg+i);

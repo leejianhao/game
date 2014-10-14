@@ -39,6 +39,7 @@ public class LevelActivity extends BaseActivity {
 	protected void onStart() {
 		super.onStart();
 		passedLevel = GamePref.getInstance(this).getLevelPref();
+		//passedLevel = 0;
 		findViews();
 	}
 	
@@ -59,7 +60,7 @@ public class LevelActivity extends BaseActivity {
 			if(i<=passedLevel%5) {
 				
 				final int index = i;
-				imageView.setImageResource(R.drawable.level_1_1);
+				imageView.setImageResource(R.drawable.level_1_1+i);
 				imageView.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
