@@ -13,14 +13,21 @@ import android.graphics.Bitmap;
 
 public class MonsterWizardRule {
 	public static EnumMap<MonsterEnum, Bitmap[]> enumMap_bitmap = new EnumMap<MonsterEnum, Bitmap[]>(MonsterEnum.class) ;
+	
 	public static Map<Bitmap[], Bitmap[]> enumMap_deadBitmap = new HashMap<Bitmap[], Bitmap[]>() ;
 	public static Map<Bitmap[], Bitmap[]> enumMap_attackBitmap = new HashMap<Bitmap[], Bitmap[]>() ;
+	public static Map<Bitmap[], Bitmap[]> enumMap_attack_attacked_Bitmap = new HashMap<Bitmap[], Bitmap[]>() ;
+	public static Map<Bitmap[], Bitmap[]> enumMap_attacked_Bitmap = new HashMap<Bitmap[], Bitmap[]>() ;
+	
 	public static EnumMap<MonsterEnum, MonsterProperty> enumMap_monsterproperty = new EnumMap<MonsterEnum, MonsterProperty>(MonsterEnum.class);
 	
 	static{
 		enumMap_bitmap.put(MonsterEnum.A, BitMapManager.getInstance().A);
 		enumMap_deadBitmap.put(BitMapManager.getInstance().A, BitMapManager.getInstance().A_DEAD);
 		enumMap_attackBitmap.put(BitMapManager.getInstance().A, BitMapManager.getInstance().A_ATTACK);
+		enumMap_attack_attacked_Bitmap.put(BitMapManager.getInstance().A, BitMapManager.getInstance().A_ATTACK_ATTACKED);
+		enumMap_attacked_Bitmap.put(BitMapManager.getInstance().A, BitMapManager.getInstance().A_ATTACKED);
+		
 		enumMap_monsterproperty.put(MonsterEnum.A, MonsterList.monsterList.get(MonsterEnum.A));
 		
 		enumMap_bitmap.put(MonsterEnum.B, BitMapManager.getInstance().B);

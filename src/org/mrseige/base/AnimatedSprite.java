@@ -13,13 +13,23 @@ import android.view.MotionEvent;
 public class AnimatedSprite extends Tiled implements Serializable{
 
 	protected Bitmap[] bitmap;
+	protected Bitmap[] bitmap2;
 	protected boolean isLoop;
 	protected boolean isEnd;
 	private int position=0;
 	private long start_timer;
 	private static final int ANIMA_TIMER=100;//每帧动画绘制所需要的时间
 	
+	/**
+	 * 计数器
+	 */
+	private int count =0;
+	/**
+	 * 标记怪物被射中
+	 */
+	private boolean attacked = false;
 	private Paint paint;
+	
 	public AnimatedSprite() {
 		
 	}
@@ -36,7 +46,6 @@ public class AnimatedSprite extends Tiled implements Serializable{
 		if(bitmap==null)return;
 		canvas.save();
 		RectF rect = new RectF(x,y,width,height);
-		Log.i("value", " "+this.getPosition());
 		//Bug:避免怪物Bitmap变化时，引发的IndexOutOfBoundException
 		if(position>=bitmap.length)position=bitmap.length-1; 
 	//	canvas.drawRect(x, y, width, height, paint);
@@ -44,6 +53,7 @@ public class AnimatedSprite extends Tiled implements Serializable{
 		canvas.restore();
 		if(!isEnd){
 			long end = System.currentTimeMillis();
+			//ANIMA_TIMER换一个动作
 			if(end-start_timer>=ANIMA_TIMER){
 				start_timer = end;
 				position++;
@@ -59,24 +69,7 @@ public class AnimatedSprite extends Tiled implements Serializable{
 		}
 	}
 	
-	/**
-	 * 计数器
-	 */
-	private int count =0;
-	/**
-	 * 标记怪物被射中
-	 */
-	private boolean attacked = false;
-	
-	public boolean isAttacked() {
-		return attacked;
-	}
-
-	public void setAttacked(boolean attacked) {
-		this.attacked = attacked;
-	}
-
-	public void draw2(Canvas canvas) {
+	/*public void draw2(Canvas canvas) {
 		if(count++<=3) {
 			canvas.save();
 			canvas.drawRect(x, y, width, height, paint);
@@ -85,6 +78,45 @@ public class AnimatedSprite extends Tiled implements Serializable{
 			attacked = false;
 			count = 0;
 		}
+	}*/
+	
+	public void draw2(Canvas canvas) {
+		if(bitmap2==null)return;
+		if(count++<=5) {
+			canvas.save();
+			RectF rect = new RectF(x,y,width,height);
+			//Bug:避免怪物Bitmap变化时，引发的IndexOutOfBoundException
+			if(position>=bitmap2.length)position=bitmap2.length-1; 
+			canvas.drawBitmap(bitmap2[position], null,rect, null);
+			canvas.restore();
+			if(!isEnd){
+				long end = System.currentTimeMillis();
+				//ANIMA_TIMER换一个动作
+				if(end-start_timer>=ANIMA_TIMER){
+					start_timer = end;
+					position++;
+					if(position>=bitmap2.length){
+						position = 0;
+						isEnd = true;
+						//循环时，还原帧
+						if(isLoop){
+							isEnd = false;
+						}
+					}
+				}
+			}
+		}else {
+			attacked = false;
+			count = 0;
+		}
+	}
+	
+	public boolean isAttacked() {
+		return attacked;
+	}
+
+	public void setAttacked(boolean attacked) {
+		this.attacked = attacked;
 	}
 	
 	public boolean isEnd() {
@@ -117,6 +149,14 @@ public class AnimatedSprite extends Tiled implements Serializable{
 
 	public void setPosition(int position) {
 		this.position = position;
+	}
+
+	public Bitmap[] getBitmap2() {
+		return bitmap2;
+	}
+
+	public void setBitmap2(Bitmap[] bitmap2) {
+		this.bitmap2 = bitmap2;
 	}
 
 	@Override

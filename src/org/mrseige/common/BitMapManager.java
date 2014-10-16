@@ -27,6 +27,8 @@ public class BitMapManager{
 	public Bitmap[] A = new Bitmap[5];
 	public Bitmap[] A_DEAD = new Bitmap[4];
 	public Bitmap[] A_ATTACK = new Bitmap[3];
+	public Bitmap[] A_ATTACK_ATTACKED = new Bitmap[3];
+	public Bitmap[] A_ATTACKED = new Bitmap[5];
 	
 	public Bitmap[] B = new Bitmap[5];
 	public Bitmap[] B_DEAD = new Bitmap[4];
@@ -54,7 +56,6 @@ public class BitMapManager{
 	public Bitmap[] F = new Bitmap[10];
 	public Bitmap[] F_DEAD = new Bitmap[3];
 	public Bitmap[] F_ATTACK = new Bitmap[4];
-	
 	
 	
 	public Bitmap[] level = new Bitmap[6];
@@ -117,6 +118,14 @@ public class BitMapManager{
 		for(int i=0,size=A_ATTACK.length;i<size;i++) {
 			Bitmap b = readBitMap(context, R.drawable.a_attack_1+i);
 			A_ATTACK[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		for(int i=0,size=A_ATTACK_ATTACKED.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.a_attack_attacked_1+i);
+			A_ATTACK_ATTACKED[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
+		}
+		for(int i=0,size=A_ATTACKED.length;i<size;i++) {
+			Bitmap b = readBitMap(context, R.drawable.a_attacked_1+i);
+			A_ATTACKED[i] = Bitmap.createScaledBitmap(b, DensityUtil.dip2px(context, b.getWidth()), DensityUtil.dip2px(context,b.getHeight()), true);
 		}
 		
 		for(int i=0,size=B.length;i<size;i++) {
@@ -268,6 +277,15 @@ public class BitMapManager{
 		}
 		for(int i=0,size=D.length;i<size;i++) {
 			   recycleBitmap(D[i]);
+		}
+		for(int i=0,size=E.length;i<size;i++) {
+			   recycleBitmap(E[i]);
+		}
+		for(int i=0,size=F.length;i<size;i++) {
+			   recycleBitmap(F[i]);
+		}
+		for(int i=0,size=BB.length;i<size;i++) {
+			   recycleBitmap(BB[i]);
 		}
    }
    

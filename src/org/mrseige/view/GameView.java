@@ -7,6 +7,7 @@ import org.mrseige.activity.GamePref;
 import org.mrseige.activity.MrSeigeActivity;
 import org.mrseige.base.AnimatedSprite;
 import org.mrseige.base.Layer;
+import org.mrseige.base.entity.LevelDataConfig;
 import org.mrseige.base.entity.MonsterList;
 import org.mrseige.common.BitMapManager;
 import org.mrseige.common.DensityUtil;
@@ -97,10 +98,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 	}
 	
 	private org.mrseige.base.entity.LevelData loadByLevel() {
-		int rows = gameLevel/3;
-		int cols = gameLevel%5;
-		Log.d(TAG, "rows: "+rows+" cols: "+cols);
-		return org.mrseige.base.entity.LevelConfig.getInstance().getLevel()[rows][cols];
+		return LevelDataConfig.get(gameLevel);
 	}
 	
 
@@ -208,15 +206,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 		fw.draw(canvas);
 		ft.draw(canvas);
 		
+		long dtime = System.currentTimeMillis();
 		for(int i=0;i<monsterList.size();i++) {
 			if(monsterList.get(i).isAlive()) {
 				if(monsterList.get(i).isAttacked()) {
+					if(monsterList.get(i).getBitmap2()==null)monsterList.get(i).setBitmap2(MonsterWizardRule.enumMap_attack_attacked_Bitmap.get(monsterList.get(i).getBitmap()));
 					monsterList.get(i).draw2(canvas);
+				}else {
+					monsterList.get(i).draw(canvas);
 				}
-				monsterList.get(i).draw(canvas);
+				
 			}
 			
 		}
+		Log.d(TAG, "loop elapse time: "+(System.currentTimeMillis()-dtime)+"ms "+
+				"怪物数量是: "+monsterList.size() );
 		for(int i=0;i<explodeList.size();i++) {
 			explodeList.get(i).draw(canvas);
 		}
@@ -272,6 +276,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 			int height) {
 		Log.v(TAG, "surfaceChanged invoked...");
 		monsterList.clear();
+		explodeList.clear();
 	}
 	
 	public void setRestoredState(GameStatus gameStatus) {

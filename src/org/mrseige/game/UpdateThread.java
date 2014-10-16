@@ -10,7 +10,7 @@ public class UpdateThread extends Thread {
 	 private static final String TAG = UpdateThread.class.getSimpleName();
 	 
 	 //希望达到的每秒帧数
-	 private static final int MAX_FPS = 30;
+	 private static final int MAX_FPS = 35;
 	 //一帧所需时间
 	 private static final int FRAME_PERIOD = 1000/MAX_FPS;
 	 
@@ -63,14 +63,22 @@ public class UpdateThread extends Thread {
 						framesSkipped =0;
 						beginTime = System.currentTimeMillis();
 						if(canvas!=null) {
+							long btime = System.currentTimeMillis();
 							gameView.render(canvas);
+							Log.d(TAG, "render time: "+(System.currentTimeMillis()-btime)+" ms");
+							btime = System.currentTimeMillis();
 							gameView.update();
+							Log.d(TAG, "update time: "+(System.currentTimeMillis()-btime)+" ms");
+							btime = System.currentTimeMillis();
 							gameView.collisionCheck();
+							Log.d(TAG, "collisioncheck time: "+(System.currentTimeMillis()-btime)+" ms");
+							btime = System.currentTimeMillis();
 							gameView.explode();
+							Log.d(TAG, "explode time: "+(System.currentTimeMillis()-btime)+" ms");
 						}
 						timeDiff = System.currentTimeMillis() - beginTime;
 						sleepTime = (int)(FRAME_PERIOD - timeDiff);
-						Log.i(TAG, sleepTime+"");
+						Log.i(TAG, sleepTime+"ms");
 						if(sleepTime > 0) {
 							Log.v(TAG, String.valueOf(sleepTime));
 							try {

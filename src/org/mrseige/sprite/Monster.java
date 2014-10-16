@@ -106,6 +106,7 @@ public class Monster extends AnimatedSprite implements Serializable{
 	 * @param zoombieList
 	 */
 	public void update(List<Monster> monsterList) {
+		long bbtime = System.currentTimeMillis();
 		int y = 0;
 		
 		int screenWidth = GameManager.getInstance().getScreenWidth();
@@ -130,6 +131,9 @@ public class Monster extends AnimatedSprite implements Serializable{
 			//随后则随机出现
 			if(ma.size()> 0 && monsterList.size() < 5 && firstMonster.getCount() > 0) {
 				bitmaps = MonsterWizardRule.enumMap_bitmap.get(firstMonster.getMonster().getMonsterType());
+				/*bitmaps2 = MonsterWizardRule.enumMap_bitmap2.get(firstMonster.getMonster().getMonsterType());
+				bitmaps3 = MonsterWizardRule.enumMap_bitmap3.get(firstMonster.getMonster().getMonsterType());*/
+				
 				try {
 					monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(firstMonster.getMonster().getMonsterType()).clone();
 				} catch (CloneNotSupportedException e) {
@@ -142,14 +146,12 @@ public class Monster extends AnimatedSprite implements Serializable{
 				for(int i=0;i<ma.size();i++) {
 					if(ma.get(i).getCount() > index) {
 						bitmaps = MonsterWizardRule.enumMap_bitmap.get(ma.get(i).getMonster().getMonsterType());
+						/*bitmaps2 = MonsterWizardRule.enumMap_bitmap2.get(ma.get(i).getMonster().getMonsterType());
+						bitmaps3 = MonsterWizardRule.enumMap_bitmap3.get(ma.get(i).getMonster().getMonsterType());*/
 						try {
 							monsterProperty = (MonsterProperty) MonsterWizardRule.enumMap_monsterproperty.get(ma.get(i).getMonster().getMonsterType()).clone();
 						} catch (CloneNotSupportedException e) {
 							e.printStackTrace();
-						}
-						if(monsterProperty == null) {
-							
-							System.out.println(monsterProperty);
 						}
 						ma.get(i).setCount(ma.get(i).getCount() - 1);
 						break;
@@ -160,6 +162,8 @@ public class Monster extends AnimatedSprite implements Serializable{
 			}
 			startTime = endTime;
 			addMonster(monsterList, screenWidth, bitmaps, monsterProperty);
+			
+			Log.d(TAG, "elapse time: "+(System.currentTimeMillis()-bbtime)+"ms");
 		}
 	}
 	
